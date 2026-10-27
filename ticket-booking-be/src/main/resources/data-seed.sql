@@ -1,0 +1,145 @@
+-- ==============================================================================
+-- SEED DATA MẪU CHO HỆ THỐNG ĐẶT VÉ (AUDITORIUM, SEAT, EVENT, SHOWTIME, SHOWTIME_SEAT)
+-- Phù hợp với PostgreSQL, MySQL, H2 Database
+-- ==============================================================================
+
+-- 1. TẠO TÀI KHOẢN USER TEST (Để test trường hợp ghế đang được user giữ chỗ)
+INSERT INTO users (id, email, full_name, role, status, created_at, updated_at)
+VALUES (
+    'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    'customer_demo@example.com',
+    'Nguyễn Văn A',
+    'CUSTOMER',
+    'ACTIVE',
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+);
+
+-- 2. TẠO PHÒNG CHIẾU / KHÁN PHÒNG (AUDITORIUM)
+-- Phòng chiếu 01: Ma trận 4 hàng x 8 cột = 32 ghế
+INSERT INTO auditoriums (id, name, total_seats, created_at, updated_at)
+VALUES (1, 'Phòng chiếu 01 (IMAX Laser)', 32, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- 3. TẠO 32 GHẾ VẬT LÝ TRONG PHÒNG CHIẾU (SEATS)
+-- Hàng A (Hạng STANDARD, Row 1, Col 1-8)
+INSERT INTO seats (id, auditorium_id, seat_row, seat_number, seat_code, seat_type, row_index, column_index, created_at, updated_at) VALUES
+(1, 1, 'A', 1, 'A01', 'STANDARD', 1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 1, 'A', 2, 'A02', 'STANDARD', 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 1, 'A', 3, 'A03', 'STANDARD', 1, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 1, 'A', 4, 'A04', 'STANDARD', 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 1, 'A', 5, 'A05', 'STANDARD', 1, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 1, 'A', 6, 'A06', 'STANDARD', 1, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 1, 'A', 7, 'A07', 'STANDARD', 1, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 1, 'A', 8, 'A08', 'STANDARD', 1, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Hàng B (Hạng STANDARD, Row 2, Col 1-8)
+INSERT INTO seats (id, auditorium_id, seat_row, seat_number, seat_code, seat_type, row_index, column_index, created_at, updated_at) VALUES
+(9,  1, 'B', 1, 'B01', 'STANDARD', 2, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 1, 'B', 2, 'B02', 'STANDARD', 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(11, 1, 'B', 3, 'B03', 'STANDARD', 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(12, 1, 'B', 4, 'B04', 'STANDARD', 2, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(13, 1, 'B', 5, 'B05', 'STANDARD', 2, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(14, 1, 'B', 6, 'B06', 'STANDARD', 2, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(15, 1, 'B', 7, 'B07', 'STANDARD', 2, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(16, 1, 'B', 8, 'B08', 'STANDARD', 2, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Hàng C (Hạng VIP - Tầm nhìn đẹp nhất, Row 3, Col 1-8)
+INSERT INTO seats (id, auditorium_id, seat_row, seat_number, seat_code, seat_type, row_index, column_index, created_at, updated_at) VALUES
+(17, 1, 'C', 1, 'C01', 'VIP', 3, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 1, 'C', 2, 'C02', 'VIP', 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 1, 'C', 3, 'C03', 'VIP', 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(20, 1, 'C', 4, 'C04', 'VIP', 3, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(21, 1, 'C', 5, 'C05', 'VIP', 3, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(22, 1, 'C', 6, 'C06', 'VIP', 3, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(23, 1, 'C', 7, 'C07', 'VIP', 3, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(24, 1, 'C', 8, 'C08', 'VIP', 3, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- Hàng D (Hạng SWEETBOX - Ghế đôi phía sau, Row 4, Col 1-8)
+INSERT INTO seats (id, auditorium_id, seat_row, seat_number, seat_code, seat_type, row_index, column_index, created_at, updated_at) VALUES
+(25, 1, 'D', 1, 'D01', 'SWEETBOX', 4, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(26, 1, 'D', 2, 'D02', 'SWEETBOX', 4, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(27, 1, 'D', 3, 'D03', 'SWEETBOX', 4, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(28, 1, 'D', 4, 'D04', 'SWEETBOX', 4, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(29, 1, 'D', 5, 'D05', 'SWEETBOX', 4, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(30, 1, 'D', 6, 'D06', 'SWEETBOX', 4, 6, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(31, 1, 'D', 7, 'D07', 'SWEETBOX', 4, 7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(32, 1, 'D', 8, 'D08', 'SWEETBOX', 4, 8, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- 4. TẠO SỰ KIỆN / PHIM (EVENT)
+INSERT INTO events (id, title, description, duration_minutes, status, created_at, updated_at)
+VALUES (
+    1,
+    'Dune: Hành Tinh Cát - Phần 2',
+    'Bộ phim bom tấn khoa học viễn tưởng đạt nhiều giải thưởng quốc tế.',
+    166,
+    'ACTIVE',
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+);
+
+-- 5. TẠO SUẤT CHIẾU (SHOWTIME)
+-- Suất diễn lúc 19:30 tối nay, giá vé tiêu chuẩn gốc: 80.000 VNĐ
+INSERT INTO showtimes (id, event_id, auditorium_id, start_time, end_time, base_price, status, created_at, updated_at)
+VALUES (
+    1,
+    1,
+    1,
+    '2026-10-15 19:30:00',
+    '2026-10-15 22:16:00',
+    80000.00,
+    'OPEN_FOR_BOOKING',
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+);
+
+-- 6. TẠO GIÁ & TRẠNG THÁI CHO TỪNG GHẾ THEO SUẤT CHIẾU (SHOWTIME_SEATS)
+-- Đa dạng các mức giá và trạng thái để test chức năng chọn ghế & xem giá:
+-- - Ghế Thường (A01 - B08): 80.000 VNĐ
+-- - Ghế VIP (C01 - C08): 120.000 VNĐ
+-- - Ghế Đôi Sweetbox (D01 - D08): 180.000 VNĐ
+-- Trạng thái mô phỏng:
+-- - AVAILABLE: Còn trống (click xem giá và chọn đặt)
+-- - BOOKED: Đã bán thành công (C03, C04)
+-- - HOLDING: Đang được giữ chỗ (B05, B06 đang giữ bởi User Nguyen Van A)
+-- - BLOCKED: Ghế bảo trì/hỏng (A08)
+
+INSERT INTO showtime_seats (id, showtime_id, seat_id, price, status, hold_expires_at, held_by_user_id, created_at, updated_at) VALUES
+-- Hàng A (80.000 VNĐ)
+(1, 1, 1, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 1, 2, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 1, 3, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 1, 4, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 1, 5, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 1, 6, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 1, 7, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 1, 8, 80000.00, 'BLOCKED',   NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Ghế hỏng
+
+-- Hàng B (80.000 VNĐ)
+(9,  1, 9,  80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 1, 10, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(11, 1, 11, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(12, 1, 12, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(13, 1, 13, 80000.00, 'HOLDING',   '2026-10-15 20:00:00', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Đang giữ chỗ
+(14, 1, 14, 80000.00, 'HOLDING',   '2026-10-15 20:00:00', 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Đang giữ chỗ
+(15, 1, 15, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(16, 1, 16, 80000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+
+-- Hàng C (Ghế VIP - 120.000 VNĐ)
+(17, 1, 17, 120000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 1, 18, 120000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 1, 19, 120000.00, 'BOOKED',    NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Đã bán
+(20, 1, 20, 120000.00, 'BOOKED',    NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP), -- Đã bán
+(21, 1, 21, 120000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(22, 1, 22, 120000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(23, 1, 23, 120000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(24, 1, 24, 120000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+
+-- Hàng D (Ghế Đôi Sweetbox - 180.000 VNĐ)
+(25, 1, 25, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(26, 1, 26, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(27, 1, 27, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(28, 1, 28, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(29, 1, 29, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(30, 1, 30, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(31, 1, 31, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(32, 1, 32, 180000.00, 'AVAILABLE', NULL, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
