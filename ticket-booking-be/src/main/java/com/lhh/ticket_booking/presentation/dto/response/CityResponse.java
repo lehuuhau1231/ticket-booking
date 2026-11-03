@@ -1,6 +1,5 @@
 package com.lhh.ticket_booking.presentation.dto.response;
 
-import com.lhh.ticket_booking.domain.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserResponse {
+public class CityResponse {
     private Long id;
-    private String email;
-    private UserRole role;
+    private String name;
+    private String code;
 }

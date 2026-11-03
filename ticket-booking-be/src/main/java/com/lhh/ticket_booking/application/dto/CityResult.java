@@ -1,4 +1,4 @@
-package com.lhh.ticket_booking.presentation.dto.response;
+package com.lhh.ticket_booking.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LoginResponse {
-    private UserResponse userResponse;
-    private String token;
+public class CityResult {
+    private Long id;
+    private String name;
+    private String code;
 }

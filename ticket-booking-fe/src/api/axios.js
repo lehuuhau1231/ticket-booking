@@ -1,16 +1,34 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-console.log("BASE_URL:", BASE_URL);
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8080/ticket-booking/api";
 
-export const createAuthApi = (token) =>
-  axios.create({
+const instance = axios.create({
+  baseURL: BASE_URL,
+});
+
+instance.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    return Promise.reject(error?.response?.data || error);
+  }
+);
+
+export const createAuthApi = (token) => {
+  const authInstance = axios.create({
     baseURL: BASE_URL,
-    Headers: {
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-export default axios.create({
-  baseURL: BASE_URL,
-});
+  authInstance.interceptors.response.use(
+    (response) => response.data,
+    (error) => {
+      return Promise.reject(error?.response?.data || error);
+    }
+  );
+
+  return authInstance;
+};
+
+export default instance;

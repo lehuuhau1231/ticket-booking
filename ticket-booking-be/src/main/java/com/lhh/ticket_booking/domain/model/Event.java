@@ -1,5 +1,6 @@
 package com.lhh.ticket_booking.domain.model;
 
+import com.lhh.ticket_booking.domain.enums.EventCategory;
 import com.lhh.ticket_booking.domain.enums.EventStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,13 @@ public class Event {
     private String title;
     private String description;
     private Integer durationMinutes;
+    private String posterUrl;
+    private EventCategory category;
+    private Long cityId;
+    private String cityName;
+    private String cityCode;
+    private String locationName;
+    private LocalDateTime startDate;
     @Builder.Default
     private EventStatus status = EventStatus.UPCOMING;
     private LocalDateTime createdAt;

@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
                 .message(runtimeException.getMessage() != null ? runtimeException.getMessage() : errorCode.getMessage())
                 .build();
 
-        return ResponseEntity.status(HttpStatus.valueOf(errorCode.getHttpStatusCode())).body(apiResponse);
+        return ResponseEntity.status(errorCode.getHttpStatusCode()).body(apiResponse);
     }
 
     @ExceptionHandler(value = AppException.class)
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
                 .message(errorCode.getMessage())
                 .build();
 
-        return ResponseEntity.status(HttpStatus.valueOf(errorCode.getHttpStatusCode())).body(apiResponse);
+        return ResponseEntity.status(errorCode.getHttpStatusCode()).body(apiResponse);
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
                 .message(errorCode.getMessage())
                 .build();
 
-        return ResponseEntity.status(HttpStatus.valueOf(errorCode.getHttpStatusCode())).body(apiResponse);
+        return ResponseEntity.status(errorCode.getHttpStatusCode()).body(apiResponse);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

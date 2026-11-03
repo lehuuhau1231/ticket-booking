@@ -7,11 +7,17 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, dispatch] = useReducer(userReducer, null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const login = async (userData) => {
     const loginResponse = await authApi.login(userData);
-    localStorage.setItem("token", loginResponse.result.token);
-    dispatch({ type: "login", payload: loginResponse.result });
+
+    const responseResult = loginResponse?.result;
+    if (responseResult?.token) {
+      localStorage.setItem("token", loginResponse.result.token);
+    }
+    const profile = responseResult?.userResponse || responseResult;
+    dispatch({ type: "login", payload: profile });
     return loginResponse;
   };
 
@@ -33,8 +39,13 @@ export const AuthProvider = ({ children }) => {
         dispatch({ type: "login", payload: userData.result });
       } catch (error) {
         console.error("Error fetching user data:", error);
+        localStorage.removeItem("token");
         dispatch({ type: "logout" });
+      } finally {
+        setIsLoading(false);
       }
+    } else {
+      setIsLoading(false);
     }
   };
 
@@ -43,7 +54,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, dispatch, login, logout, register }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        dispatch,
+        login,
+        logout,
+        register,
+        isLoading,
+        isAuthenticated: !!user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

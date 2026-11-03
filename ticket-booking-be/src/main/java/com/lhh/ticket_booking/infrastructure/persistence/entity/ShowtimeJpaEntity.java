@@ -1,15 +1,7 @@
 package com.lhh.ticket_booking.infrastructure.persistence.entity;
 
 import com.lhh.ticket_booking.domain.enums.ShowtimeStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,6 +31,9 @@ public class ShowtimeJpaEntity extends BaseJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "auditorium_id", nullable = false)
     private AuditoriumJpaEntity auditorium;
+
+    @OneToMany(mappedBy = "showtime")
+    private List<ShowtimeSeatJpaEntity> showtimeSeat;
 
     @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;

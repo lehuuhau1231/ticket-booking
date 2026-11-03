@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class UserPersistenceAdapter implements UserRepositoryPort {
+public class UserAdapter implements UserRepositoryPort {
     private final SpringDataUserRepository springDataUserRepository;
     private final UserPersistenceMapper userPersistenceMapper;
 

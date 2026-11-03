@@ -34,6 +34,9 @@ class LoginServiceTest {
     @Mock
     private TokenProviderPort tokenProviderPort;
 
+    @Mock
+    private com.lhh.ticket_booking.application.mapper.UserAppMapper userAppMapper;
+
     @InjectMocks
     private LoginService loginService;
 
@@ -80,6 +83,11 @@ class LoginServiceTest {
         when(userRepositoryPort.findByEmail("test@example.com")).thenReturn(Optional.of(mockUser));
         when(passwordEncoderPort.matches("secret123", "encoded_pass")).thenReturn(true);
         when(tokenProviderPort.generateToken(mockUser)).thenReturn("sample_token_xyz");
+        when(userAppMapper.toUserResult(mockUser)).thenReturn(com.lhh.ticket_booking.application.dto.UserResult.builder()
+                .id(1L)
+                .email("test@example.com")
+                .role(UserRole.CUSTOMER)
+                .build());
 
         LoginResult result = loginService.login(command);
 
